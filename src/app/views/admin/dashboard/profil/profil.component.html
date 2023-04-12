@@ -1,0 +1,100 @@
+<section  *ngIf="userInfo" >
+    <div class="container py-5">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">User</a></li>
+              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="../assets/safa.jpg" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3">{{ userInfo.username }}</h5>
+              <p class="text-muted mb-1"> {{ userInfo.titre }}</p>
+              <p class="text-muted mb-4">{{ userInfo.email }}</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button class="btn btn-primary">Modifier le profil</button>
+              </div>
+            </div>
+          </div>
+      </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ userInfo.username }}</p>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">tt</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ userInfo.titre }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"> {{ userInfo.email }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">(216)  {{ userInfo.phoneNumber }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Mobile</p>
+                </div>
+                <div class="col-sm-9"  *ngFor="let role of userInfo.roles">
+                  <p class="text-muted mb-0">{{role.roleName}}</p>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+          </div>
+      </div>
+    </div>
+  </section>
+  <div *ngIf="userInfo">
+  <p>Username: {{ userInfo.username }}</p>
+  <p>Email: {{ userInfo.email }}</p>
+  <p>Phone Number: {{ userInfo.phoneNumber }}</p>
+  <p>Last Name: {{ userInfo.userLastName }}</p>
+  <p>Last Name: {{ userInfo.titre }}</p>
+
+  
+  <div style="display: inline-block; margin: 5px;" *ngFor="let role of userInfo.roles">
+    <p>{{role.roleName}}</p>
+  </div>
+  <div style="display: inline-block; margin: 5px;" *ngFor="let tasks of userInfo.tasks">
+    <p>{{tasks.title}}</p>
+  </div>
+  <p>Title: {{ userInfo.titre }}</p>
+</div>

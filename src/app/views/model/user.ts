@@ -5,10 +5,17 @@ export class User {
     userLastName!: string;
     email!: string;
     phoneNumber!: string;
-    authorities!: Role[];
+    authorities!: Authority[];
+    roles!: Role[];
+    titre!:string;
+
+      // Ajoutez cette propriété à la classe User
   }
   
   export class Role {
     roleName!: string;
+  }
+  export interface Authority {
+    authority: string;
   }
   

@@ -21,7 +21,9 @@ export class ListUserComponent implements OnInit{
     userLastName: '',
     email: '',
     phoneNumber: '',
+    titre: '',
     authorities: [],
+    roles: []
   };
   
   showPopup: boolean = false;

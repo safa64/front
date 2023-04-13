@@ -50,18 +50,15 @@
     </tbody>
   </table>
   <div class="overlay" *ngIf="showPopup"></div>
-  <div class="popup" *ngIf="showPopup">
+  <div class="popup" *ngIf="showPopup" >
     <button class="close" (click)="togglePopup()"> <i class="fas fa-times"></i></button>
-    <form (ngSubmit)="updateUser()" #userForm="ngForm">
+    <form  #userForm="ngForm">
       <input type="hidden" name="id" [(ngModel)]="selectedUser.id" required>
       <div class="mb-3">
         <label class="form-label">Username</label>
-        <input type="text" class="form-control" name="username" [(ngModel)]="selectedUser.username" required>
+        <input type="text" class="form-control" name="username" [(ngModel)]="selectedUser.username" required >
       </div>
-      <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="selectedUser.password" required>
-      </div>
+     
       <div class="mb-3">
         <label class="form-label">Last Name</label>
         <input type="text" class="form-control" name="userLastName" [(ngModel)]="selectedUser.userLastName" required>
@@ -71,20 +68,32 @@
         <input type="email" class="form-control" name="email" [(ngModel)]="selectedUser.email" required>
       </div> 
       <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-control" name="titre"[(ngModel)]="selectedUser.titre"required>
+        <label class="form-label">titre</label>
+        <input type="text" class="form-control" name="titre" [(ngModel)]="selectedUser.titre"required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">phoneNumber</label>
+        <input  class="form-control" name="phoneNumber"[(ngModel)]="selectedUser.phoneNumber"required>
       </div>
       <div class="mb-3">
         <label class="form-label">Roles</label>
         <label class="form-label">Roles</label>
         <label class="form-label">Autorisations</label>
-        <div *ngFor="let role of selectedUser.roles; let i=index">
-          <input type="text" [value]="role.roleName" [name]="'roleName' + (i+1)">
+        <label class="form-label">Autorisations</label>
+        <label class="form-label">Autorisations</label>
+        <div *ngFor="let role of selectedUser.roles; let i=index" required>
+          <input type="text" [(ngModel)]="role.roleName" [name]="'roleName' + (i+1)" >
+          <input type="text" [(ngModel)]="role.id" [name]="'id' + (i+1)" >
+
+          <button type="button" (click)="removeRole(i)">Remove</button>
         </div>
+        
+
       
+
       </div>
      
-      <button type="submit" class="btn btn-primary">Update</button>
+      <button type="submit" class="btn btn-primary" (click)="updateUser()">Update</button>
     </form>
   </div>
   

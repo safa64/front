@@ -5,7 +5,7 @@ import { DataService } from 'src/app/views/services/data.service';
 import { Route, Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Role, User } from 'src/app/views/model/user';
+import { Authorisation, User } from 'src/app/views/model/user';
 
 @Component({
   selector: 'app-list-user',
@@ -14,17 +14,6 @@ import { Role, User } from 'src/app/views/model/user';
 })
 export class ListUserComponent implements OnInit{
   dataArray!: User[] ;
-  selectedUser: User = {
-    id: 0,
-    username: '',
-    password: '',
-    userLastName: '',
-    email: '',
-    phoneNumber: '',
-    titre: '',
-    authorities: [],
-    roles: []
-  };
   
   showPopup: boolean = false;
     constructor(private ds:DataService,private router: Router,public dialog: MatDialog,private fb:FormBuilder,private cdRef:ChangeDetectorRef) {
@@ -32,6 +21,7 @@ export class ListUserComponent implements OnInit{
  
   ngOnInit(): void {
     this.getUsers();
+    console.log()
   }
 
   
@@ -63,21 +53,60 @@ export class ListUserComponent implements OnInit{
     this.showPopup = !this.showPopup;
     this.showOverlay = !this.showOverlay;
   }
-  editUser(user: User) {
-    this.selectedUser = {...user};
-    console.log(this.selectedUser)
-    this.showPopup = true;
-  }
+// la fonction pour supprimer un rôle
+removeRole(index: number) {
+  this.selectedUser.roles.splice(index, 1);
+}
+editUser(user: User) {
+  // Mettre à jour les rôles de l'utilisateur
+  const updatedRoles = user.roles.map(role => ({ id: role.id, roleName: role.roleName }));
+  roles: updatedRoles
+
+  // Mettre à jour l'utilisateur sélectionné
+  this.selectedUser = {
+    id: user.id,
+    username: user.username,
+    userLastName: user.userLastName,
+    email: user.email,
+    phoneNumber: user.phoneNumber,
+    titre: user.titre,
+    roles: updatedRoles
+  };
   
+  // Afficher le popup pour modifier l'utilisateur
+  this.showPopup = true;
+}
+
+
+  
+  selectedUser: User = {
+    id: 0,
+    username: '',
+    userLastName: '',
+    email: '',
+    phoneNumber: 0,
+    titre: '',
+    roles: [] as Authorisation[]
+  };
   
   updateUser() {
-
-    this.ds.updateUser(this.selectedUser).subscribe(data => {
-      this.showPopup = false;
-      this.getUsers();
-    });
-  }
-  
+    console.log(this.selectedUser) 
+    
+    
+    this.ds.updateUser(this.selectedUser).subscribe(
+     (response) => {
+       console.log(response);
+       // faire quelque chose avec la réponse du service
+       this.router.navigate(['/users']);
+       console.log('User updated:', this.selectedUser);
+     },
+     (error) => {
+       console.log(error);
+       // faire quelque chose avec l'erreur renvoyée par le service
+     }
+   );
+ }
+ 
    
  
 

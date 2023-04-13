@@ -36,7 +36,9 @@ deleteUser(id: number) {
   const url = `http://localhost:8080/api/v1/auth/deleteUser?id=${id}`;
   return this.http.delete(url);
 }
-updateUser(user: User): Observable<User> {
-  return this.http.put<User>('http://localhost:8080/api/v1/auth/updateUser', user);
+updateUser(updatedUser: User): Observable<User> {
+  return this.http.put<User>('http://localhost:8080/api/v1/auth/updateUser', updatedUser);
 }
+
+
 }

@@ -6,6 +6,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { CalendrierComponent } from './calendrier/calendrier.component';
 import { ListUserComponent } from './list-user/list-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import {AddProjectComponent} from "./add-project/add-project.component";
 
 const routes: Routes = [
   {path:'',component:DashboardComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'profil',component:ProfilComponent},
   {path:'Calender',component:CalendrierComponent},
   {path:'users',component:ListUserComponent},
+  {path:'add-project',component:AddProjectComponent},
 
   {path:'adduser',component:AddUserComponent}
 

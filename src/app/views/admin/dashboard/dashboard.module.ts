@@ -21,12 +21,13 @@ import { MbscModule } from '@mobiscroll/angular-lite/src/js/modules/mobiscroll.a
 import { ProjectsComponent } from './projects/projects.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { ListUserComponent } from './list-user/list-user.component';
+import { AddProjectComponent } from './add-project/add-project.component';
 
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, TasksComponent, ProfilComponent, CalendrierComponent, ProjectsComponent, AddUserComponent, ListUserComponent],
+  declarations: [DashboardComponent, TasksComponent, ProfilComponent, CalendrierComponent, ProjectsComponent, AddUserComponent, ListUserComponent, AddProjectComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

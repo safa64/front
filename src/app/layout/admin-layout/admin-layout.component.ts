@@ -3,6 +3,7 @@ import { Route, Router } from '@angular/router';
 import { AuthadminService } from 'src/app/views/services/authadmin.service';
 import { navbarData } from './nav-data';
 import { notifcations} from './header-data';
+import { DataService } from 'src/app/views/services/data.service';
 
 interface SideNavToggle{
   screenWidth:number;
@@ -15,11 +16,24 @@ interface SideNavToggle{
 })
 
 export class AdminLayoutComponent {
-  constructor(private asd:AuthadminService, private route :Router){
+  imageSrc!: string;
+  userInfo: any;
+
+  constructor(private asd:AuthadminService, private route :Router,private ser:DataService){
     console.log(this.asd.LoggedIsUser())
+    const user = this.asd.getUser();
+
+    this.ser.getUserData(user).subscribe((data: any) => {
+      this.userInfo = data;
+      console.log(this.userInfo.profilePicture)
+      this.imageSrc = 'data:image/jpeg;base64,' + this.userInfo.profilePicture;
+
+    });
    }
 
-
+   getImageUrl() {
+    return this.imageSrc;
+  }
  userItems=[
     {icon:'far fa-user',
      label:'profil'},

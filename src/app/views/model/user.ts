@@ -6,7 +6,8 @@ export class User {
     phoneNumber!: number;
     roles!: Authorisation[];
     titre!:string;
-
+    profilePicture!:Uint8Array;
+    
       // Ajoutez cette propriété à la classe User
   }
   

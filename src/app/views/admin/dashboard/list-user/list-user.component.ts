@@ -14,28 +14,50 @@ import { Authorisation, User } from 'src/app/views/model/user';
 })
 export class ListUserComponent implements OnInit{
   dataArray!: User[] ;
-  
+  existingRoles!: Authorisation[] ;
+
   showPopup: boolean = false;
-    constructor(private ds:DataService,private router: Router,public dialog: MatDialog,private fb:FormBuilder,private cdRef:ChangeDetectorRef) {
+  constructor(private ds: DataService, private router: Router, public dialog: MatDialog, private fb: FormBuilder, private cdRef: ChangeDetectorRef) {
   }
  
   ngOnInit(): void {
     this.getUsers();
-    console.log()
+    this.getroles();
+  }
+  
+  getroles(): void {
+    this.ds.getAllRoles().subscribe(
+      (roles:any) => {
+        this.existingRoles = roles;
+        
+        // Mettre à jour les ID des rôles modifiés
+        this.selectedUser.roles.forEach(role => {
+          const existingRole = this.existingRoles.find(r => r.roleName === role.roleName);
+          if (existingRole) {
+            role.id = existingRole.id;
+          }
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );  
   }
 
-  
+ 
+
   getUsers(): void {
     this.ds.getAllusers().subscribe(
       (response: any) => {
         this.dataArray = response;
+        console.log(response.profilePicture)
       },
       (error: any) => {
         console.log(error);
       }
     );
   }
-  
+ 
   deleteUser(id: number): void {
     this.ds.deleteUser(id).subscribe(
       (response: any) => {
@@ -47,37 +69,34 @@ export class ListUserComponent implements OnInit{
       }
     );
   }
+  
   showOverlay=false;
   
   togglePopup(): void {
     this.showPopup = !this.showPopup;
     this.showOverlay = !this.showOverlay;
   }
-// la fonction pour supprimer un rôle
-removeRole(index: number) {
-  this.selectedUser.roles.splice(index, 1);
-}
-editUser(user: User) {
-  // Mettre à jour les rôles de l'utilisateur
-  const updatedRoles = user.roles.map(role => ({ id: role.id, roleName: role.roleName }));
-  roles: updatedRoles
-
-  // Mettre à jour l'utilisateur sélectionné
-  this.selectedUser = {
-    id: user.id,
-    username: user.username,
-    userLastName: user.userLastName,
-    email: user.email,
-    phoneNumber: user.phoneNumber,
-    titre: user.titre,
-    roles: updatedRoles
-  };
   
-  // Afficher le popup pour modifier l'utilisateur
-  this.showPopup = true;
-}
-
-
+  // Fonction pour supprimer un rôle
+  removeRole(index: number) {
+    this.selectedUser.roles.splice(index, 1);
+  }
+  
+  editUser(user: User) {
+    this.selectedUser = {
+      id: user.id,
+      username: user.username,
+      userLastName: user.userLastName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      titre: user.titre,
+      profilePicture:user.profilePicture,
+      roles: user.roles.map(role => ({...role}))
+    };
+    
+    // Afficher le popup pour modifier l'utilisateur
+    this.showPopup = true;
+  }
   
   selectedUser: User = {
     id: 0,
@@ -86,36 +105,42 @@ editUser(user: User) {
     email: '',
     phoneNumber: 0,
     titre: '',
+    profilePicture:new Uint8Array(),
     roles: [] as Authorisation[]
   };
   
+  
   updateUser() {
-    console.log(this.selectedUser) 
-    
-    
+  
+    if (!this.selectedUser.email || !this.selectedUser.userLastName || !this.selectedUser.titre ||!this.selectedUser.username) {
+      console.log('Veuillez remplir tous les champs obligatoires');
+      return;
+    }
+    console.log(this.selectedUser);
+     // Mettre à jour les ID des rôles modifiés
+  this.selectedUser.roles.forEach(role => {
+    const existingRole = this.existingRoles.find(r => r.roleName === role.roleName);
+    if (existingRole) {
+      role.id = existingRole.id;
+    }
+  });
     this.ds.updateUser(this.selectedUser).subscribe(
      (response) => {
        console.log(response);
-       // faire quelque chose avec la réponse du service
+       // Faire quelque chose avec la réponse du service
        this.router.navigate(['/users']);
        console.log('User updated:', this.selectedUser);
+       this.togglePopup();
+
+
      },
      (error) => {
        console.log(error);
-       // faire quelque chose avec l'erreur renvoyée par le service
+       // Faire quelque chose avec l'erreur renvoyée par le service
      }
    );
- }
- 
-   
- 
-
-
-  
-
-
-
- 
-  
+  }
+  addRole() {
+    this.selectedUser.roles.push({ roleName: '', id: 0 });
+  }
 }
-

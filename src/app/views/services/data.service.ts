@@ -19,11 +19,12 @@ export class DataService {
     return this.http.get('http://localhost:8080/api/v1/auth/getAllUsers')
 
   }
-  adduser(formData:any){
-    return this.http.post('http://localhost:8080/api/v1/auth/register',formData)
-  }
- 
 
+  adduser(formData: FormData) {
+    const apiUrl = 'http://localhost:8080/register';
+
+    return this.http.post('http://localhost:8080/api/v1/auth/register',formData);
+  }
 
 
 // Fonction pour récupérer les informations utilisateur à partir du backend
@@ -39,6 +40,25 @@ deleteUser(id: number) {
 updateUser(updatedUser: User): Observable<User> {
   return this.http.put<User>('http://localhost:8080/api/v1/auth/updateUser', updatedUser);
 }
+updateUserWP(updatedUser: User): Observable<User> {
+  return this.http.put<User>('http://localhost:8080/api/v1/auth/updateUserWP', updatedUser);
+}
+
+getAllRoles(){
+  return this.http.get('http://localhost:8080/api/v1/auth/getAllRole')
+
+}
+changePassword(id: number, oldPassword: string, newPassword: string) {
+  const url = `http://localhost:8080/api/v1/auth/change-password?id=${id}&oldPassword=${oldPassword}&newPassword=${newPassword}`;
+  return this.http.post(url, {});
+}
+uploadProfilePicture(file: File, userId: number) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('userId', userId.toString());
+  return this.http.post('http://localhost:8080/api/v1/auth/upload-profile-picture', formData);
+}
+
 
 
 }

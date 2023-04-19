@@ -10,6 +10,8 @@ import { DataService } from 'src/app/views/services/data.service';
 })
 export class AddUserComponent implements OnInit{
   submitted = false;
+  selectedFile!: File;
+  public errorMessage: string = '';
 
   formLogin !:FormGroup
   // formlogin essem samitou tasmya
@@ -25,7 +27,8 @@ export class AddUserComponent implements OnInit{
         userLastName: ['', Validators.required],
         roleName: ['', Validators.required],
         titre: ['', Validators.required],
-        confirmPassword: ['', Validators.required]
+        confirmPassword: ['', Validators.required],
+        profilePicture: ['']
       }, { validator: this.ConfirmedValidator('password', 'confirmPassword') });
     }
     
@@ -41,27 +44,46 @@ export class AddUserComponent implements OnInit{
         }
       }
     }
-    
+    onFileSelected(event: any) {
+      this.selectedFile = <File>event.target.files[0];
+    }
     onclickForm() {
       this.submitted = true;
-    
+  
       if (this.formLogin.invalid) {
         return;
       }
-    
-      const formData = this.formLogin.value;
-    
+  
+      const formData = new FormData();
+  
+      formData.append('username', this.formLogin.get('username')!.value);
+      formData.append('email', this.formLogin.get('email')!.value);
+      formData.append('phoneNumber', this.formLogin.get('phoneNumber')!.value);
+      formData.append('password', this.formLogin.get('password')!.value);
+      formData.append('userLastName', this.formLogin.get('userLastName')!.value);
+      formData.append('roleName', this.formLogin.get('roleName')!.value);
+      formData.append('titre', this.formLogin.get('titre')!.value);
+      formData.append('confirmPassword', this.formLogin.get('confirmPassword')!.value);
+      formData.append('profilePicture', this.selectedFile);
+  
       this.asd.adduser(formData).subscribe(
         (response) => {
           console.log(response);
           // faire quelque chose avec la réponse du service
           this.router.navigate(['/users']);
-
         },
         (error) => {
-          console.log(error);
-          // faire quelque chose avec l'erreur renvoyée par le service
+          if (error.status === 403) {
+            this.errorMessage = "Email already exists";
+          }
+          if (error.status === 409) {
+            this.errorMessage = "Email already exists";
+          } else {
+            this.errorMessage = "Email already exists";
+          }
+          
         }
+        
       );
     }
     

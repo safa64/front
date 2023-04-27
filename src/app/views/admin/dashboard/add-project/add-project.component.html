@@ -1,0 +1,69 @@
+<div class="left">
+    <h1>Add Project</h1>
+    <ul class="breadcrumb">
+      <li>
+        <a  class="active"  href="#">Dashboard</a>
+      </li>
+  
+      <li>
+        <a class="active" href="/add-project">Add Project</a>
+      </li>
+    </ul>
+  </div>
+  <form class="row g-3" [formGroup]="formLogin" >
+    <div class="col-10">
+
+      <label for="inputProjectName" class="form-label">Project Name</label>
+      <input type="text" class="form-control" id="inputProjectName" placeholder="Enter the project name" formControlName="projectName">
+      <div class="alert alert-danger" role="alert" *ngIf="formLogin.controls['projectName']?.errors?.['required'] && submitted">
+        Project name is required
+      </div>
+    </div>
+    <div class="col-10">
+      <label for="inputProjectManager" class="form-label">Project Manager Email</label>
+      <input type="text" class="form-control" id="inputProjectManager" placeholder="Enter the project Manager Email" formControlName="email">
+      <div class="alert alert-danger" role="alert" *ngIf="formLogin.controls['email']?.errors?.['required'] && submitted">
+        Project name is required
+      </div>
+    </div>
+    <div class="col-10">
+      <label for="inputProjectDesc" class="form-label">Project Description</label>
+      <textarea class="form-control" id="inputProjectDesc" rows="3" placeholder="Enter the project description" formControlName="descriptionP"></textarea>
+      <div class="alert alert-danger" role="alert" *ngIf="formLogin.controls['descriptionP']?.errors?.['required'] && submitted">
+        Project description is required
+      </div>
+    </div>
+    <div class="col-10">
+      <label for="inputProjectObjective" class="form-label">Project Objective</label>
+      <textarea class="form-control" id="inputProjectObjective" rows="3" placeholder="Enter the project objective" formControlName="objectiveP"></textarea>
+      <div class="alert alert-danger" role="alert" *ngIf="formLogin.controls['objectiveP']?.errors?.['required'] && submitted">
+        Project objective is required
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="inputProjectDuration" class="form-label">Project Duration (in days)</label>
+      <input type="number" class="form-control" id="inputProjectDuration" placeholder="Enter the project duration" formControlName="durationP">
+      <div class="alert alert-danger" role="alert" *ngIf="formLogin.controls['durationP']?.errors?.['required'] && submitted" >
+        Project duration is required
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="inputProjectDeadline" class="form-label">Project Deadline</label>
+      <input type="date" class="form-control" id="inputProjectDeadline" placeholder="Enter the project deadline" formControlName="deadlineP">
+      <div class="alert alert-danger" role="alert" *ngIf="formLogin.controls['deadlineP']?.errors?.['required'] && submitted">
+        Project deadline is required
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="inputProjectDeadline" class="form-label">Project Deadline</label>
+      <input type="text" class="form-control" id="inputProjectDeadline" placeholder="Enter the project budget" formControlName="budget">
+      <div class="alert alert-danger" role="alert" *ngIf="formLogin.controls['budget']?.errors?.['required'] && submitted">
+        Project deadline is required
+      </div>
+    </div>
+  
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" (click)="onclickForm()" > Submit </button>
+    </div>
+  
+  </form>

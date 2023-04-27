@@ -1,18 +1,18 @@
 export const navbarData=[
     {
-        routeLink:'',
+        routeLink:'dashboard',
         icon:'fal fa-home',
         label :'Dashboard'
 
     },
     {
-        routeLink:'Profile',
+        routeLink:'profil',
         icon:'fa fa-user',
         label :'profile'
 
     },
     {
-        routeLink:'Tasks',
+        routeLink:'tasks',
         icon:'fa fa-tasks',
         label :'tasks'
 

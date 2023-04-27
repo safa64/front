@@ -127,9 +127,11 @@
       </div>
       <div class="form-group">
         <label for="profilePicture">Profile Picture</label>
-        <input type='file' name="profilePicture" class="form-control-file" id="profilePicture" (change)="onFileSelected($event)" [(ngModel)]="selectedFile">
+        <input type='file' name="profilePicture" class="form-control-file" id="profilePicture" (change)="onFileSelected($event)" >
       </div>
       
+      <div  class="alert alert-danger" role="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+
       <button type="submit" class="btn btn-primary" (click)="updateUser()">Update</button>
     </form>
   </div>

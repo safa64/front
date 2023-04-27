@@ -76,6 +76,8 @@
         <div class="alert alert-danger" role="alert" *ngIf="userForm.submitted && userForm.controls['email']?.errors?.['required'] ">
           Identifier is required
        </div>
+       <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+
       </div> 
       <div  class="col-md-5">
         <label class="form-label">titre</label>

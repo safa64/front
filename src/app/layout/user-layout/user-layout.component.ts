@@ -1,8 +1,9 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthadminService } from 'src/app/views/services/authadmin.service';
-import { notifcations } from './header-dataU';
-import { navbarData } from './nav-dataU';
+import { navbarData } from './nav-data';
+import { notifcations } from './header-data';
+
 
 interface SideNavToggle{
   screenWidth:number;
@@ -15,7 +16,6 @@ interface SideNavToggle{
 })
 export class UserLayoutComponent {
   constructor(private asd:AuthadminService, private route :Router){
-    console.log(this.asd.LoggedIn())
    }
 
 

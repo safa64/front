@@ -1,35 +1,118 @@
 <table class="table caption-top">
-    <caption>
-      List of users
-    </caption>
-    <thead>
-      <tr>
-        <th scope="col">project</th>
-        <th scope="col">date</th>
-        <th scope="col">client</th>
-        <th scope="col">status
-            
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
+  <caption>List of projects</caption>
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Project Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">objectif</th>
+
+      <th scope="col">Duration</th>
+      <th scope="col">Deadline</th>
+      <th scope="col">Project Manager</th>
+      <th scope="col">status</th>
+      <th scope="col">budget</th>
+
+
+      <th>actions</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let project of dataArray">
+      <td>{{ project.id }}</td>
+
+      <td>{{ project.projectName }}</td>
+      <td>{{ project.descriptionP }}</td>
+      <td>{{ project.objectiveP }}</td>
+      <td>{{ project.durationP }}</td>
+      <td>{{ project.deadlineP }}</td>
+      <td>{{ project.email}}</td>
+      <td>{{ project.status}}</td>
+      <td>{{ project.budget}}</td>
+
+
+      <td>
+        <div class="bouton">
+          <button type="button" class="btn btn-outline-success"  (click)="editUser(project)"  >Edit</button>
+          <button type="button" class="btn btn-outline-danger" (click)="deleteProject(project.id)">Delete</button>
+      </div>
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<div class="overlay" *ngIf="showPopup"></div>
+  <div class="popup" *ngIf="showPopup" >
+    <button class="close" (click)="togglePopup()"> <i class="fas fa-times"></i></button>
+    <form class="row g-3" #userForm="ngForm">
+      <input type="hidden" name="id" [(ngModel)]="selectedProject.id" required>
+
+      <div class="col-md-5">
+        <label class="form-label">project Name</label>
+        <input type="text" class="form-control" name="projectName" [(ngModel)]="selectedProject.projectName" required >
+        <div class="alert alert-danger" role="alert" *ngIf="userForm.submitted && userForm.controls['projectName']?.errors?.['required'] ">
+          Identifier is required
+       </div>
+      </div>
+     
+      <div class="col-md-5">
+        <label class="form-label">objective</label>
+        <input type="text" class="form-control" name="objectiveP" [(ngModel)]="selectedProject.objectiveP" required>
+        <div class="alert alert-danger" role="alert" *ngIf="userForm.submitted && userForm.controls['objectiveP']?.errors?.['required'] ">
+          Identifier is required
+       </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">projectManager</label>
+        
+        <input type="email" class="form-control" name="email" [(ngModel)]="selectedProject.email" required>
+        <div class="alert alert-danger" role="alert" *ngIf="userForm.submitted && userForm.controls['email']?.errors?.['required'] ">
+          Identifier is required
+       </div>
+       <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      </div> 
+      <div  class="col-md-5">
+        <label class="form-label">titre</label>
+        
+        <input [(ngModel)]="selectedProject.deadlineP" class="form-control"  [ngModelOptions]="{ standalone: true }" matInput [matDatepicker]="picker" placeholder="Deadline">
+        
+        <div class="alert alert-danger" role="alert" *ngIf="userForm.submitted && userForm.controls['deadlineP']?.errors?.['required'] ">
+          Identifier is required
+       </div>
+         </div>
+         <div  class="col-md-5">
+        <label class="form-label">titre</label>
+        <input type="text" class="form-control" name="durationP" [(ngModel)]="selectedProject.durationP"required>
+        <div class="alert alert-danger" role="alert" *ngIf="userForm.submitted && userForm.controls['durationP']?.errors?.['required'] ">
+          Identifier is required
+       </div>
+      </div>
+      <div  class="col-md-5">
+        <label class="form-label">phoneNumber</label>
+        <input  class="form-control" name="descriptionP"[(ngModel)]="selectedProject.descriptionP"required>
+        <div class="alert alert-danger" role="alert" *ngIf="userForm.submitted && userForm.controls['descriptionP']?.errors?.['required'] ">
+          Identifier is required
+       </div>
+      </div>
+      <div  class="col-md-5">
+        <label class="form-label">phoneNumber</label>
+        <input  class="form-control" name="budget"[(ngModel)]="selectedProject.budget"required>
+        <div class="alert alert-danger" role="alert" *ngIf="userForm.submitted && userForm.controls['budget']?.errors?.['required'] ">
+          Identifier is required
+       </div>
+      </div>
+      
+      
+      
+
+      
+
+      
+     
+      <button type="submit" class="btn btn-primary" (click)="updateProject()">Update</button>
+    </form>
+  </div>
+  

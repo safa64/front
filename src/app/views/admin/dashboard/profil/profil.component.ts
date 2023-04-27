@@ -5,6 +5,7 @@ import { AuthadminService } from 'src/app/views/services/authadmin.service';
 import { DataService } from 'src/app/views/services/data.service';
 import {MatDialog} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { forkJoin, of } from 'rxjs';
 
 
 @Component({
@@ -25,7 +26,6 @@ export class ProfilComponent {
 
     this.asd.getUserData(user).subscribe((data: any) => {
       this.userInfo = data;
-      console.log(this.userInfo.profilePicture)
       this.imageSrc = 'data:image/jpeg;base64,' + this.userInfo.profilePicture;
 
     });
@@ -82,45 +82,37 @@ export class ProfilComponent {
     }
 
   
-    updateUser(){
+    updateUser() {
+      let success = true; // initialiser le flag à true
       if (!this.selectedUser.email || !this.selectedUser.userLastName || !this.selectedUser.titre) {
         console.log('Veuillez remplir tous les champs obligatoires');
         return;
       }
-      this.asd.updateUserWP(this.selectedUser).subscribe(
-        (response) => {
-          console.log(response);
-          // Faire quelque chose avec la réponse du service
-          console.log('User updated:',this.selectedUser.id);
+    
+      let updateObs = this.asd.updateUserWP(this.selectedUser);
+      let uploadObs = this.selectedFile ? this.asd.uploadProfilePicture(this.selectedFile, this.selectedUser.id) : of(null);
+    
+      forkJoin([updateObs, uploadObs]).subscribe(
+        ([updateResponse, uploadResponse]) => {
+          console.log('User updated:', this.selectedUser.id);
           this.togglePopup();
-          if (this.selectedFile) {
-            // Appeler la méthode pour télécharger la photo de profil
-            this.asd.uploadProfilePicture(this.selectedFile, this.selectedUser.id).subscribe(
-              (response) => {
-                console.log(response);
-                // Faire quelque chose avec la réponse du service
-              },
-              (error) => {
-                console.log(error);
-                // Faire quelque chose avec l'erreur renvoyée par le service
-              }
-            );
-          }
         },
         (error) => {
           console.log(error);
-          if (error.status === 403) {
+    
+          if (error.status === 400) {
             this.errorMessage = "Email already exists";
-          }
-          if (error.status === 409) {
-            this.errorMessage = "Email already exists";
+          } else if (error.error && error.error.token) {
+            this.errorMessage = "Failed to read profile picture file";
           } else {
-            this.errorMessage = "Email already exists";
+            this.errorMessage = "Error updating user";
           }
-          // Faire quelque chose avec l'erreur renvoyée par le service
         }
       );
     }
+    
+    
+    
     
   passwordForm = this.fb.group({
     oldPassword: ['', Validators.required],

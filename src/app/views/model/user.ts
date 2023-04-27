@@ -16,3 +16,16 @@ export class User {
     id!:number;
   }
   
+export class Project {
+  id!:number;
+  projectName!: string;
+  descriptionP!: string;
+  objectiveP!: string;
+  durationP!: number;
+  deadlineP!: Date;
+  email!: string;
+  userId!:number;
+  status!:string;
+  budget!:number;
+  
+}

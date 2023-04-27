@@ -21,12 +21,16 @@ import { MbscModule } from '@mobiscroll/angular-lite/src/js/modules/mobiscroll.a
 import { ProjectsComponent } from './projects/projects.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { ListUserComponent } from './list-user/list-user.component';
+import { AddProjectComponent } from './add-project/add-project.component';
 
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
-  declarations: [DashboardComponent, TasksComponent, ProfilComponent, CalendrierComponent, ProjectsComponent, AddUserComponent, ListUserComponent],
+  declarations: [DashboardComponent, TasksComponent, ProfilComponent, CalendrierComponent, ProjectsComponent, AddUserComponent, ListUserComponent, AddProjectComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -35,7 +39,10 @@ import { ListUserComponent } from './list-user/list-user.component';
     MatIconModule,KanbanModule,
     DragDropModule,
     ReactiveFormsModule,
-    HttpClientModule,FormsModule
+    HttpClientModule,FormsModule,MatDatepickerModule,MatNativeDateModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

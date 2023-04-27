@@ -14,7 +14,6 @@ interface SideNavToggle{
 })
 export class ManagerLayoutComponent {
   constructor(private asd:AuthadminService, private route :Router){
-    console.log(this.asd.LoggedIsUser())
    }
 
 

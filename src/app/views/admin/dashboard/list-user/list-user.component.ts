@@ -50,7 +50,6 @@ export class ListUserComponent implements OnInit{
     this.ds.getAllusers().subscribe(
       (response: any) => {
         this.dataArray = response;
-        console.log(response.profilePicture)
       },
       (error: any) => {
         console.log(error);
@@ -108,10 +107,10 @@ export class ListUserComponent implements OnInit{
     profilePicture:new Uint8Array(),
     roles: [] as Authorisation[]
   };
-  
+  errorMessage=''
+
   
   updateUser() {
-  
     if (!this.selectedUser.email || !this.selectedUser.userLastName || !this.selectedUser.titre ||!this.selectedUser.username) {
       console.log('Veuillez remplir tous les champs obligatoires');
       return;
@@ -136,6 +135,12 @@ export class ListUserComponent implements OnInit{
      },
      (error) => {
        console.log(error);
+       if (error.status === 400) {
+        this.errorMessage = "Email already exists";
+      } else {
+        this.errorMessage = "Email already exists";
+      }
+      
        // Faire quelque chose avec l'erreur renvoyée par le service
      }
    );

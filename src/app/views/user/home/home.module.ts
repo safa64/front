@@ -6,8 +6,9 @@ import { HomeComponent } from './home/home.component';
 import { ProfilComponent } from './profil/profil.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { CalendrierComponent } from './calendrier/calendrier.component';
-import { ProjectsComponent } from './projects/projects.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -16,13 +17,14 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ProfilComponent,
     TasksComponent,
     CalendrierComponent,
-    ProjectsComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     DragDropModule,
-
+    FormsModule,
+    ReactiveFormsModule,
+    DragDropModule
   ]
 })
 export class HomeModule { }

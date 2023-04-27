@@ -12,7 +12,7 @@ const routes: Routes = [
   {path:'user',component:UserLayoutComponent,canActivate:[GuarduserGuard],children:[
     {path:'',loadChildren:()=>import('./views/user/home/home.module').then(m=>m.HomeModule)},
 
-  ]}, 
+  ]},
   {path:'manager',component:ManagerLayoutComponent,canActivate:[GuardmanagerGuard],children:[
     {path:'',loadChildren:()=>import('./views/manager/management/management.module').then(m=>m.ManagementModule)},
 
@@ -20,7 +20,7 @@ const routes: Routes = [
   {path:'',component:AdminLayoutComponent ,canActivate:[GuardadminGuard],children:[
     {path:'',loadChildren:()=>import('./views/admin/dashboard/dashboard.module').then(m=>m.DashboardModule)},
     {path:'dashboard',loadChildren:()=>import('./views/admin/dashboard/dashboard.module').then(m=>m.DashboardModule)},
-    {path:'tasks',loadChildren:()=>import('./views/admin/dashboard/dashboard.module').then(m=>m.DashboardModule)},
+    {path:'tasks',loadChildren:()=>import('./views/admin/dashboard/dashboard.module').then(m=>m.DashboardModule)}, {path:'project',loadChildren:()=>import('./views/admin/dashboard/dashboard.module').then(m=>m.DashboardModule)},
     {path:'profil',loadChildren:()=>import('./views/admin/dashboard/dashboard.module').then(m=>m.DashboardModule)},
 
   ]}

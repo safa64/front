@@ -25,7 +25,6 @@ export class AdminLayoutComponent {
 
     this.ser.getUserData(user).subscribe((data: any) => {
       this.userInfo = data;
-      console.log(this.userInfo.profilePicture)
       this.imageSrc = 'data:image/jpeg;base64,' + this.userInfo.profilePicture;
 
     });

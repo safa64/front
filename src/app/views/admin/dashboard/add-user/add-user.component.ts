@@ -73,16 +73,12 @@ export class AddUserComponent implements OnInit{
           this.router.navigate(['/users']);
         },
         (error) => {
-          if (error.status === 403) {
-            this.errorMessage = "Email already exists";
-          }
-          if (error.status === 409) {
-            this.errorMessage = "Email already exists";
+          console.error(error);
+          if (error.error && error.error.token) {
+            this.errorMessage = error.error.token;
           } else {
-            this.errorMessage = "Email already exists";
-          }
-          
-        }
+            this.errorMessage = 'An error occurred while uploading the file.';
+          }        }
         
       );
     }

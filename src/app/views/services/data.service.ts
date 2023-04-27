@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import * as jwt_decode from 'jwt-decode';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class DataService {
   adduser(formData: FormData) {
     const apiUrl = 'http://localhost:8080/register';
 
-    return this.http.post('http://localhost:8080/api/v1/auth/register',formData);
+    return this.http.post('http://localhost:8080/api/v1/auth/register',formData)
   }
 
 
@@ -57,6 +57,9 @@ uploadProfilePicture(file: File, userId: number) {
   formData.append('file', file);
   formData.append('userId', userId.toString());
   return this.http.post('http://localhost:8080/api/v1/auth/upload-profile-picture', formData);
+}
+Users():Observable<number>{
+  return this.http.get<number>('http://localhost:8080/api/v1/auth/countUser')
 }
 
 

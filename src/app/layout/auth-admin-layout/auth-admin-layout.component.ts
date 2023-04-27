@@ -34,7 +34,7 @@ export class AuthAdminLayoutComponent implements OnInit{
 
   loginadmin(f:any){
     let data=f.value
-
+console.log(data)
     this.asd.login(data).subscribe((response)=>
       {
         this.dataReceived=response

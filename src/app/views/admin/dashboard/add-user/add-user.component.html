@@ -80,7 +80,8 @@
       (change)="onFileSelected($event)"
     />
   </div>
-  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+ 
+  <div  class="alert alert-danger" role="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
 
   <div class="col-12">
     <button type="submit" class="btn btn-primary" (click)="onclickForm()">Sign in</button>

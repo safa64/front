@@ -1,1 +1,50 @@
-<p>projects works!</p>
+<div class="left">
+    <h1>List of projects</h1>
+    <ul class="breadcrumb">
+      <li>
+        <a  class="active"  href="#">Dashboard</a>
+      </li>
+      
+      <li>
+        <a class="active" href="/project">Projects</a>
+      </li>
+    </ul>
+  </div>
+<table class="table caption-top">
+    <caption>List of projects</caption>
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Project Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">objectif</th>
+  
+        <th scope="col">Duration</th>
+        <th scope="col">Deadline</th>
+        <th scope="col">Project Manager</th>
+        <th scope="col">status</th>
+        <th scope="col">budget</th>
+  
+  
+  
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of dataArray">
+        <td>{{ project.id }}</td>
+  
+        <td>{{ project.projectName }}</td>
+        <td>{{ project.descriptionP }}</td>
+        <td>{{ project.objectiveP }}</td>
+        <td>{{ project.durationP }}</td>
+        <td>{{ project.deadlineP }}</td>
+        <td>{{ project.email}}</td>
+        <td>{{ project.status}}</td>
+        <td>{{ project.budget}}</td>
+  
+  
+       
+      </tr>
+      
+    </tbody>
+  </table>

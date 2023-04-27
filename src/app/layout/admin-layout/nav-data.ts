@@ -24,7 +24,7 @@ export const navbarData=[
     },
     {
         routeLink:'Calender',
-        icon:'bi bi-calendar',
+        icon:"fa fa-calendar",
         label :'Calender'
 
     }
@@ -35,16 +35,23 @@ export const navbarData=[
 
     },{
         routeLink:'users',
-        icon:'fa fa-comments',
+        icon:'fa fa-users',
         label :'users'
 
     }
     ,{
         routeLink:'adduser',
-        icon:'fa fa-comments',
+        icon:'fa fa-user-plus',
         label :'add user'
 
-    }
+    },
+    {
+        routeLink:'add-project',
+        icon:'fa fa-server',
+        label :'add project'
+    
+      }
+      
     
 
 ];

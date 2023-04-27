@@ -17,6 +17,7 @@ export interface Task {
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent {
+  constructor(){}
 board: Board = new Board('Test Board', [
     new Column('Ideas', [
       "Some random idea",
@@ -42,6 +43,8 @@ board: Board = new Board('Test Board', [
       'Walk dog'
     ])
   ]);
+  
+ 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

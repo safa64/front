@@ -17,7 +17,7 @@ export const navbarData=[
         label :'tasks'
 
     },
-{        routeLink:'Projects',
+{        routeLink:'project',
         icon:'fa fa-window-restore',
         label :'Porjects'
 

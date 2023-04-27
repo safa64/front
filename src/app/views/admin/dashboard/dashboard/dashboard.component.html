@@ -8,36 +8,35 @@
               <li>
                 <a href="#">Dashboard</a>
               </li>
-              <li><i class='bx bx-chevron-right' ></i></li>
               <li>
-                <a class="active" href="#">Home</a>
+                <a  href="#">Home</a>
               </li>
             </ul>
           </div>
-          <a href="#" class="btn-download">
-            <i  class="bi bi-plus-circle-fill" ></i>
-            <span class="text">Create project</span>
+          <a routerLink="/add-project" class="btn-download">
+            <i  class="fa fa-plus" ></i>
+            <span class="text" >Create project</span>
           </a>
         </div>
         <ul class="box-info">
           <li>
             <i class='bx bxs-calendar-check' ></i>
             <span class="text">
-              <h3>1020</h3>
-              <p>New Order</p>
+              <h3>{{ projectCount }}</h3>
+              <p>projects</p>
             </span>
           </li>
           <li>
             <i class='bx bxs-group' ></i>
             <span class="text">
-              <h3>2834</h3>
-              <p>Visitors</p>
+              <h3>{{userCount}}</h3>
+              <p>users</p>
             </span>
           </li>
           <li>
             <i class='bx bxs-dollar-circle' ></i>
             <span class="text">
-              <h3>$2543</h3>
+              <h3>${{budgetscount}}</h3>
               <p>Total Sales</p>
             </span>
           </li>
@@ -50,7 +49,7 @@
               <i class='bx bx-filter' ></i>
             </div>
             <table>
-              <thead>
+              <thead >
                 <tr>
                   <th>User</th>
                   <th>Date Order</th>
@@ -58,46 +57,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let project of dataArray">
                   <td>
-                    <img src="https://secure.gravatar.com/avatar/d09eaad01aea86c51b4f892b4f8abf6f?s=100&d=wavatar&r=g">
-                    <p>John Doe</p>
+                    <p>{{ project.projectName }}</p>
                   </td>
-                  <td>01-10-2023</td>
-                  <td><span class="status completed">Completed</span></td>
+                  <td>{{project.deadlineP}}</td>
+                  <td><span [ngClass]="{'status': true, 'completed': project.status === 'completed', 'process': project.status === 'process', 'notstarted': project.status === 'not started'}">{{project.status}}</span></td>
                 </tr>
-                <tr>
-                  <td>
-                    <img src="https://secure.gravatar.com/avatar/d09eaad01aea86c51b4f892b4f8abf6f?s=100&d=wavatar&r=g">
-                    <p>John Doe</p>
-                  </td>
-                  <td>01-10-2023</td>
-                  <td><span class="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="https://secure.gravatar.com/avatar/d09eaad01aea86c51b4f892b4f8abf6f?s=100&d=wavatar&r=g">
-                    <p>John Doe</p>
-                  </td>
-                  <td>01-10-2023</td>
-                  <td><span class="status process">Process</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="https://secure.gravatar.com/avatar/d09eaad01aea86c51b4f892b4f8abf6f?s=100&d=wavatar&r=g">
-                    <p>John Doe</p>
-                  </td>
-                  <td>01-10-2023</td>
-                  <td><span class="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="https://secure.gravatar.com/avatar/d09eaad01aea86c51b4f892b4f8abf6f?s=100&d=wavatar&r=g">
-                    <p>John Doe</p>
-                  </td>
-                  <td>01-10-2023</td>
-                  <td><span class="status completed">Completed</span></td>
-                </tr>
+              
               </tbody>
             </table>
           </div>
@@ -108,26 +75,13 @@
               <i class='bx bx-filter' ></i>
             </div>
             <ul class="todo-list">
-              <li class="completed">
-                <p>Todo List</p>
+              <li class="completed"*ngFor="let project of dataArray">
+                <p>{{project.email}}</p>
                 <i class='bx bx-dots-vertical-rounded' ></i>
               </li>
-              <li class="completed">
-                <p>Todo List</p>
-                <i class='bx bx-dots-vertical-rounded' ></i>
-              </li>
-              <li class="not-completed">
-                <p>Todo List</p>
-                <i class='bx bx-dots-vertical-rounded' ></i>
-              </li>
-              <li class="completed">
-                <p>Todo List</p>
-                <i class='bx bx-dots-vertical-rounded' ></i>
-              </li>
-              <li class="not-completed">
-                <p>Todo List</p>
-                <i class='bx bx-dots-vertical-rounded' ></i>
-              </li>
+             
+            
+            
             </ul>
           </div>
         </div>
